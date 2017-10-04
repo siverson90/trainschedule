@@ -1,13 +1,18 @@
 var database = firebase.database();
 var currentTime = "";
 
-database.ref().on("child_added",function(snapshot){
+database.ref().on("value",function(snapshot){
 
+            // snapshot.forEach(function(){
+            //     console.log('<td>' + val().trainName + '</td>');
+            //     console.log('<td>' + val().destination + '</td>');
+            //     console.log('<td>' + val().firstTrainTime + '</td>');
+            //     console.log('<td>' + val().frequency + '</td>');
+            // });
 
-  $("#trainNameColumn").append(snapshot.val().trainName);
-  $("#destinationColumn").append(snapshot.val().destination);
-  $("#frequencyColumn").append(snapshot.val().firstTrainTime);
-  $("#NextTrainColumn").append(snapshot.val().frequency);
+            snapshot.forEach(function(element){
+              console.log(element.val().trainName);
+            })
 
 
   // two math functions looking at current time to determine the train schedule and calculate next arriving
