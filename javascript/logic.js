@@ -11,8 +11,26 @@ database.ref().on("value",function(snapshot){
             // });
 
             snapshot.forEach(function(element){
-              console.log(element.val().trainName);
+              var newRow = $("<tr>");
+
+              var newTd1 = $("<td>").text(element.val().trainName);
+              var newTd2 = $("<td>").text(element.val().destination);
+              var newTd3 = $("<td>").text(element.val().firstTrainTime);
+              var newTd4 = $("<td>").text(element.val().frequency);
+              
+              console.log(newTd1);
+              console.log(newTd2);
+              console.log(newTd3);
+              console.log(newTd4);
+
+              newRow.append(newTd1);
+              newRow.append(newTd2);
+              newRow.append(newTd3);
+              newRow.append(newTd4);
+
+              $("tbody").append(newRow);
             })
+
 
 
   // two math functions looking at current time to determine the train schedule and calculate next arriving
