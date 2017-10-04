@@ -20,3 +20,10 @@ Grab the values and push to HTML
 **function just for upating train times???
 
 add a math function to see the current time and make the updating schedule logic
+
+create a while loop where the variable is the current time.
+
+each loop will add the the frequency until the time is train time is greater than the current time. When and only when its greater it will be returned to the table. 
+
+for loop
+nested if that is checking is train next arrival > current time, if True return

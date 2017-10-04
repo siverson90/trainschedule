@@ -1,36 +1,26 @@
 var database = firebase.database();
-var currentTime = "";
 
-database.ref().on("value",function(snapshot){
 
-            // snapshot.forEach(function(){
-            //     console.log('<td>' + val().trainName + '</td>');
-            //     console.log('<td>' + val().destination + '</td>');
-            //     console.log('<td>' + val().firstTrainTime + '</td>');
-            //     console.log('<td>' + val().frequency + '</td>');
-            // });
+var currentTime= moment().format('H HH');
+console.log(currentTime);
 
-            snapshot.forEach(function(element){
-              var newRow = $("<tr>");
+database.ref().on("child_added",function(childSnapshot){
 
-              var newTd1 = $("<td>").text(element.val().trainName);
-              var newTd2 = $("<td>").text(element.val().destination);
-              var newTd3 = $("<td>").text(element.val().firstTrainTime);
-              var newTd4 = $("<td>").text(element.val().frequency);
-              
-              console.log(newTd1);
-              console.log(newTd2);
-              console.log(newTd3);
-              console.log(newTd4);
+      // var startDate = childSnapshot.val().startDate;
+      // var monthlyRate = childSnapshot.val().monthlyRate;
 
-              newRow.append(newTd1);
-              newRow.append(newTd2);
-              newRow.append(newTd3);
-              newRow.append(newTd4);
+      // var monthsWorked = moment().diff(moment(startDate, "DD-MM-YYYY"), 'months');
+      // console.log(monthsWorked);
 
-              $("tbody").append(newRow);
-            })
+      // var total = monthsWorked * parseInt(monthlyRate);
 
+      var row = $("<tr>");
+      row.append($("<td>").text(childSnapshot.val().trainName));
+      row.append($("<td>").text(childSnapshot.val().destination));
+      row.append($("<td>").text(childSnapshot.val().frequency));
+      row.append( $("<td>").text(childSnapshot.val().firstTrainTime));
+      row.append( $("<td>").text(childSnapshot.val().firstTrainTime));
+      $("tbody").append(row);
 
 
   // two math functions looking at current time to determine the train schedule and calculate next arriving
