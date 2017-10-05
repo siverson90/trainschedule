@@ -8,7 +8,7 @@ $("#submit-btn").on("click", function(event) {
 
   var trainName = $("#trainName").val().trim();
   var destination = $("#destination").val().trim();
-  var firstTrainToLeave = parseInt(moment($("#trainArriveTime").val().trim(),"HH H").format("HH H"));
+  var firstTrainToLeave = parseInt(moment($("#trainArriveTime").val().trim(),"HH:mm").format("HH:mm"));
   var frequency = $("#frequencyOfTrain").val().trim();
 
     database.ref().push({
@@ -44,16 +44,18 @@ database.ref().on("child_added",function(childSnapshot, prevChildKey){
       console.log(firstTrainLeaving);
 
       // Converting the first train to leave
-      var firstTrainTimeConvert = moment(firstTrainLeaving, "HH H").subtract(1, "years");
+      var firstTrainTimeConvert = moment(firstTrainLeaving, "HH:mm").subtract(1, "years");
       console.log(firstTrainTimeConvert);
 
-      // // Current time
+      // Current time
       var currentTime = moment();
-      console.log("Current time:" + moment(currentTime).format("HH H"));
+      console.log("Current time:" + moment(currentTime).format("HH:mm"));
 
+      // Difference in time
       var differenceInTime = moment().diff(moment(firstTrainTimeConvert), "minutes");
       console.log(differenceInTime);
 
+      // Time apart
       var timeRemainder = differenceInTime % trainFrequency;
       console.log(timeRemainder);
 
@@ -61,14 +63,14 @@ database.ref().on("child_added",function(childSnapshot, prevChildKey){
         console.log("Minutes till train" + timeTilNextTrain);
 
       var nextTrainArriving = moment().add(timeTilNextTrain, "Minutes");
-      console.log("arrival time of next train " + moment(nextTrainArriving).format("HH H"));
+      console.log("arrival time of next train " + moment(nextTrainArriving).format("HH:mm"));
 
 
       var row = $("<tr>");
       row.append($("<td>").text(childSnapshot.val().trainName));
       row.append($("<td>").text(childSnapshot.val().destination));
       row.append($("<td>").text(childSnapshot.val().frequency));
-      row.append($("<td>").text(moment(nextTrainArriving).format("HH H")));
+      row.append($("<td>").text(moment(nextTrainArriving).format("HH:mm")));
       row.append($("<td>").text(timeTilNextTrain));
       $("tbody").append(row);
 
