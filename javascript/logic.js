@@ -6,24 +6,23 @@ $("#submit-btn").on("click", function(event) {
 
   event.preventDefault();
 
-  var trainNameVal = $("#trainName").val().trim();
-  var destinationVal = $("#destination").val().trim();
-  var firstTrainToLeaveVal = $("#trainArriveTime").val().trim();
-  // var firstTrainToLeaveSplit = firstTrainToLeave;
-  var frequencyVal = $("#frequencyOfTrain").val().trim();
+  var trainNameLocal = $("#trainName").val().trim();
+  var destinationLocal = $("#destination").val().trim();
+  var firstTrainLocal = $("#trainArriveTime").val().trim();
+  var frequencyLocal = $("#frequencyOfTrain").val().trim();
 
 
     database.ref().push({
-      trainNameKey: trainNameVal,
-      destinationKey : destinationVal,
-      frequencyKey: frequencyVal,
-      firstTrainToLeaveKey : firstTrainToLeaveVal
+      trainNameFB: trainNameLocal,
+      destinationFB : destinationLocal,
+      frequencyFB: frequencyLocal,
+      firstTrainLeavingFB : firstTrainLocal
     })
 
-  console.log("Name of Train " + trainNameVal);
-  console.log("The destination "+ destinationVal);
-  console.log("The Frequency " + frequencyVal);
-  console.log("When the first train arrives "+firstTrainToLeaveVal);
+  console.log("Name of Train " + trainNameLocal);
+  console.log("The destination "+ destinationLocal);
+  console.log("The Frequency " + frequencyLocal);
+  console.log("When the first train arrives " + firstTrainLocal);
   // console.log(firstTrainToLeaveSplit);
 
   $("#trainName").val("");
@@ -37,12 +36,12 @@ $("#submit-btn").on("click", function(event) {
 database.ref().on("child_added",function(childSnapshot, prevChildKey) {
 
   // Getting the frequency of each train
-  var trainFrequency = parseInt(childSnapshot.val().frequencyKey);
+  var trainFrequency = parseInt(childSnapshot.val().frequencyFB);
 
   console.log("Name of Train " + trainFrequency +" from database");
 
   // Retriving the start time of each train
-  var firstTrainLeaving =parseInt(childSnapshot.val().firstTrainToLeaveKey);
+  var firstTrainLeaving =parseInt(childSnapshot.val().firstTrainLeavingFB);
 
   console.log("When the first train arrives" + firstTrainLeaving + "from database");
 
@@ -70,9 +69,9 @@ database.ref().on("child_added",function(childSnapshot, prevChildKey) {
 
 
   var row = $("<tr>");
-  row.append($("<td>").text(childSnapshot.val().trainNameKey));
-  row.append($("<td>").text(childSnapshot.val().destinationKey));
-  row.append($("<td>").text(childSnapshot.val().frequencyKey));
+  row.append($("<td>").text(childSnapshot.val().trainNameFB));
+  row.append($("<td>").text(childSnapshot.val().destinationFB));
+  row.append($("<td>").text(childSnapshot.val().frequencyFB));
   row.append($("<td>").text(moment(nextTrainArriving).format("HH:mm")));
   row.append($("<td>").text(timeTilNextTrain));
   $("tbody").append(row);

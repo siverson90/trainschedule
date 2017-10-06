@@ -15,3 +15,12 @@
 .panel{
   border: 2px solid #337ab7;
 }
+
+#panel-train-board{
+  font-family: 'VT323', monospace;
+  font-size: 20px;
+}
+
+body{
+  background-image: url(train.jpg);
+}
